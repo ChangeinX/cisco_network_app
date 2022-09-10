@@ -1,11 +1,11 @@
 # Device window has two tables, one for routers and one for switches, and a dynamic search bar above the tables.
 
 
-import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QTableWidget, QTableWidgetItem, QVBoxLayout, QAbstractItemView, \
-    QHeaderView, QLineEdit, QHBoxLayout, QLabel, QPushButton
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QBrush, QColor
+from PyQt5.QtWidgets import QWidget, QTableWidget, QVBoxLayout, QAbstractItemView, \
+    QHeaderView, QLineEdit, QHBoxLayout, QLabel, QPushButton
+
 
 class DeviceList(QWidget):
     def __init__(self):
@@ -13,8 +13,8 @@ class DeviceList(QWidget):
         self.title = 'Device List'
         self.left = 10
         self.top = 10
-        self.width = 640
-        self.height = 480
+        self.width = 860
+        self.height = 600
         self.initUI()
 
     def initUI(self):
@@ -36,17 +36,6 @@ class DeviceList(QWidget):
         self.table_widget.setSelectionMode(QAbstractItemView.SingleSelection)
         self.table_widget.itemClicked.connect(self.on_click)
 
-        # column 0 is the device name with header 'Device Name'
-        # column 1 is the device location with header 'Location'
-        # column 2 is the device IP address with header 'IP Address'
-        self.table_widget.setItem(0, 0, QTableWidgetItem('R1'))
-        self.table_widget.setItem(0, 1, QTableWidgetItem('x.x.x.x'))
-        self.table_widget.setItem(1, 0, QTableWidgetItem('R2'))
-
-        self.table_widget.setItem(2, 0, QTableWidgetItem('S1'))
-        self.table_widget.setItem(2, 1, QTableWidgetItem('x.x.x.x'))
-        self.table_widget.setItem(3, 0, QTableWidgetItem('S2'))
-
         # add dynamic search bar above the table
         self.search_bar = QLineEdit()
         self.search_bar.setPlaceholderText('Search')
@@ -56,7 +45,14 @@ class DeviceList(QWidget):
         self.search_label = QLabel('Search:')
 
         # add label above the table
-        self.table_label = QLabel('Devices:')
+        self.table_label = QLabel('Routers:')
+        self.table_label.setStyleSheet('font-weight: bold;')
+        # make the font larger
+        font = self.table_label.font()
+        font.setPointSize(14)
+        self.table_label.setFont(font)
+        # center the label
+        self.table_label.setAlignment(Qt.AlignCenter)
 
         # add table for switches on the right side of the window
         self.table_widget2 = QTableWidget()
@@ -75,18 +71,21 @@ class DeviceList(QWidget):
         self.table_widget2.setSelectionMode(QAbstractItemView.SingleSelection)
         self.table_widget2.itemClicked.connect(self.on_click)
 
+        # add label above the table
+        self.table_label2 = QLabel('Switches:')
+        self.table_label2.setStyleSheet('font-weight: bold;')
+        # make the font larger
+        font = self.table_label2.font()
+        font.setPointSize(14)
+        self.table_label2.setFont(font)
+        # center the label
+        self.table_label2.setAlignment(Qt.AlignCenter)
+
         # four buttons for table 1
-        # button 1 is 'Add'
-        # button 2 is 'Edit'
-        # button 3 is 'Delete'
-        # button 4 is 'Download Config'
         self.button1 = QPushButton('Add')
         self.button2 = QPushButton('Edit')
         self.button3 = QPushButton('Delete')
         self.button4 = QPushButton('Download Config')
-
-        # add label above the buttons
-        self.button_label = QLabel('Actions:')
 
         # place buttons below table 1
         self.button_layout = QHBoxLayout()
@@ -101,9 +100,6 @@ class DeviceList(QWidget):
         self.delete_button2 = QPushButton('Delete')
         self.download_button2 = QPushButton('Download Config')
 
-        # add label above the buttons
-        self.button_label2 = QLabel('Actions:')
-
         # place buttons below table 2
         self.button_layout2 = QHBoxLayout()
         self.button_layout2.addWidget(self.add_button2)
@@ -116,9 +112,6 @@ class DeviceList(QWidget):
         self.table_layout.addWidget(self.table_widget)
         self.table_layout.addWidget(self.table_widget2)
 
-        # place search bar above table 2
-        self.search_layout2 = QHBoxLayout()
-
         # place search bar above table 1
         self.search_layout = QHBoxLayout()
         self.search_layout.addWidget(self.search_label)
@@ -130,10 +123,9 @@ class DeviceList(QWidget):
         self.layout.addWidget(self.search_bar)
         self.layout.addWidget(self.table_label)
         self.layout.addWidget(self.table_widget)
-        self.layout.addWidget(self.button_label)
         self.layout.addLayout(self.button_layout)
+        self.layout.addWidget(self.table_label2)
         self.layout.addWidget(self.table_widget2)
-        self.layout.addWidget(self.button_label2)
         self.layout.addLayout(self.button_layout2)
         self.setLayout(self.layout)
 
@@ -144,8 +136,6 @@ class DeviceList(QWidget):
         self.search_bar.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
         self.search_label.setStyleSheet("color: #ecf0f1;")
         self.table_label.setStyleSheet("color: #ecf0f1;")
-        self.button_label.setStyleSheet("color: #ecf0f1;")
-        self.button_label2.setStyleSheet("color: #ecf0f1;")
         self.button1.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
         self.button2.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
         self.button3.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
@@ -154,6 +144,14 @@ class DeviceList(QWidget):
         self.edit_button2.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
         self.delete_button2.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
         self.download_button2.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
+        self.table_label2.setStyleSheet("color: #ecf0f1;")
+        self.table_widget2.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
+        self.table_widget2.horizontalHeader().setStyleSheet("background-color: #34495e; color: #ecf0f1;")
+        self.table_widget2.verticalHeader().setStyleSheet("background-color: #34495e; color: #ecf0f1;")
+        self.table_widget.horizontalHeader().setStyleSheet("background-color: #34495e; color: #ecf0f1;")
+        self.table_widget.verticalHeader().setStyleSheet("background-color: #34495e; color: #ecf0f1;")
+        self.table_widget.setStyleSheet("background-color: #34495e; color: #ecf0f1;")
+
         # self.button1.clicked.connect(self.add_row)
         # self.button2.clicked.connect(self.edit_row)
         # self.button3.clicked.connect(self.delete_row)
@@ -162,7 +160,6 @@ class DeviceList(QWidget):
         # self.edit_button2.clicked.connect(self.edit_row2)
         # self.delete_button2.clicked.connect(self.delete_row2)
         # self.download_button2.clicked.connect(self.download_config2)
-
 
         self.show()
 
@@ -184,11 +181,3 @@ class DeviceList(QWidget):
         # when a row is clicked, print the text in the first column
         for currentQTableWidgetItem in self.table_widget.selectedItems():
             print(currentQTableWidgetItem.text())
-
-
-
-
-
-
-
-
