@@ -10,7 +10,7 @@ import setuptools.package_index
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QSizePolicy, QLineEdit
 
-from app_gui import device_list, configure_device_window, window3
+from app_gui import device_list, configure_device_window, orion_config_UI
 
 class App(QWidget):
     def __init__(self):
