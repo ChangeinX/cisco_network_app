@@ -1,12 +1,29 @@
-{% extends "admin/templates/admin_template.html" %}
-{% block title %} Admin dashboard {% endblock %}
+{% extends "admin/templates/dashboard_base.html" %}
+
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Admin dashboard</h1>
-                <p>Here you can manage your site.</p>
+    <div>
+        <h1>Dashboard</h1>
+    </div>
+    <div class="row p-4">
+        <div class="card m-auto" style="width: 90%;">
+            <div class="card-body">
+                <h5 class="card-title">Welcome to the dashboard</h5>
+                <p class="card-text">This is the dashboard for the admin panel. Here you can manage the content of the
+                    website.</p>
             </div>
+
+        </div>
+        <div id="device-graph">
+            {#  pass tables, titles, and graph from method admin_dashboard  #}
+            {% for table in tables %}
+                <h2>{{ titles[loop.index] }}</h2>
+                {{ table |safe }}
+            {% endfor %}
         </div>
     </div>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script>
+
+    </script>
+
 {% endblock %}

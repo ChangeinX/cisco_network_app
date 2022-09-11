@@ -1707,10 +1707,6 @@ body>#login form#login_form #sign_in_options #remember_me_container {
     font-weight: 500;
     margin-right: 5px;
 }
-body>#login form#login_form #sign_in_options #remember_me_container input[type="checkbox"] {
-    cursor: pointer;
-    margin-right: 3px;
-}
 body>#login form#login_form #sign_in_options #remember_me_container label {
     cursor: pointer;
     display: inline-block;

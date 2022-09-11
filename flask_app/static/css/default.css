@@ -1,0 +1,85 @@
+/* Default styling sheet */
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #000000;
+    text-decoration: underline;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+/* Default buttons */
+
+button {
+    background-color: #f0f0f0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    color: #000000;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+}
+
+button:hover {
+    background-color: #000000;
+    color: #f0f0f0;
+}
+
+/* Forms */
+
+form {
+    margin: 0;
+    padding: 0;
+}
+
+input {
+    border: 1px solid #000000;
+    border-radius: 5px;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px;
+}
+
+input[type="submit"] {
+    background-color: #f0f0f0;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    color: #000000;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+}
+
+input[type="submit"]:hover {
+    background-color: #000000;
+    color: #f0f0f0;
+}

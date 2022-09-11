@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_style.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+  </head>
+  <body>
+  <div id="login">
+  <form name="login_form" accept-charset="UTF-8" role="form" method="post">
+    <div class="field_container">
+      <input type="text" placeholder="Username" name="username">
+    </div>
+
+    <div class="field_container">
+      <input type="Password" placeholder="Password" name="password">
+      <button id="sign_in_button">
+        <span class="button_text">Sign In</span>
+      </button>
+    </div>
+      <p class="error err--hidden">Invalid username or password</p>
+</form>
+
+  <div id="dont_have_an_account">
+    <h2>
+      Need to <a href="/register" class="login_link">sign up</a> for an account
+      or <a href="#" id="forgot_password_link" class="login_link">reset</a> your password?
+    </h2>
+  </div>
+</div>
+    <main role="main" class="container">
+      {% block main %}{% endblock %}
+    </main>
+  </body>
+</html>
