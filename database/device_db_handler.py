@@ -18,6 +18,26 @@ def get_devices():
     devices = collection.find()
     return devices
 
+# method to return all device information
+def get_device_info():
+    # Get all the devices
+    devices = get_devices()
+    # Create a list to store the device information
+    device_info = []
+    # Loop through each device
+    for device in devices:
+        # Get the device information
+        device_info.append({
+            'id': str(device['_id']),
+            'name': device['name'],
+            'type': device['type'],
+            'location': device['location'],
+            'ip': device['ip'],
+            'status': device['status']
+        })
+    # Return the device information
+    return device_info
+
 
 # get a device by ip address
 def get_device(ip):
@@ -63,6 +83,20 @@ def set_device_status(ip):
     return status
 
 
-# make a device to initialize the database
-def make_device():
-    add_device('192.168.1.1', 'Home_Router', 'SuddenlinkCrap', 'office', f'{get_device_status_by_ping("192.168.1.1")}')
+# get length of all items in the database
+def get_length():
+    return collection.count_documents({})
+
+# function to get device information by name
+def get_device_by_name(name):
+    # Get the device
+    device = collection.find_one({'name': name})
+    # Return the device
+    return device
+
+
+# create large amounts of sample data
+def create_sample_data():
+    # Add x amount of devices to the database
+    for i in range(254):
+        add_device('192.168.1.' + str(i), 'Sample' + str(i), 'Router_' + str(i), 'Basement' + str(i), 'offline')
