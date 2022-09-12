@@ -11,9 +11,6 @@
                 <label>
                     <input id="search_bar" type="text" class="form-control" placeholder="Search for...">
                 </label>
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Go!</button>
-                </span>
             </div>
         </div>
     </div>
@@ -36,7 +33,9 @@
                     </td>
                     <td>{{ device.location }}</td>
                     <td>{{ device.ip }}</td>
-                    <td>{{ device.status }}</td>
+                    <td>{{ device.status }}
+                        <button id="ping" type="button">Ping</button>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
@@ -45,7 +44,7 @@
     </div>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script>
-{#    dynamic search for input id search_bar #}
+        {#    dynamic search for input id search_bar #}
         $(document).ready(function () {
             $("#search_bar").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
@@ -54,7 +53,6 @@
                 });
             });
         });
-
     </script>
 
 {% endblock %}
