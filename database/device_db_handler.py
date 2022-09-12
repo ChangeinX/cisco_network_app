@@ -1,9 +1,8 @@
 # This python file is used to handle the database of the devices using mongodb
 
-import pymongo
 import subprocess
+import xlrd
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 
 # connect to the database
 client = MongoClient('localhost', 27017)
@@ -17,6 +16,7 @@ collection = db['devices']
 def get_devices():
     devices = collection.find()
     return devices
+
 
 # method to return all device information
 def get_device_info():
@@ -46,17 +46,30 @@ def get_device(ip):
 
 
 # add a device to the database
-def add_device(ip, name, type, location, status):
-    collection.insert_one({'name': name, 'type': type, 'location': location, 'ip': ip, 'status': status})
+def add_device(name, device_type, location, ip):
+    collection.insert_one({
+        'name': name,
+        'type': device_type,
+        'location': location,
+        'ip': ip,
+        'status': get_device_status_by_ping(ip)
+    })
 
 
-# update a device in the database
-def update_device(ip, name, type, location):
-    collection.update_one(
-        {'ip': ip}, {
-            '$set': {'name': name, 'type': type, 'location': location, 'status': get_device_status_by_ping(ip)}
-        }
-    )
+# build the database from excel file
+def build_database_from_excel():
+    # Get the excel file
+    workbook = xlrd.open_workbook('devices.xls')
+    # Get the first sheet
+    sheet = workbook.sheet_by_index(0)
+    # Loop through each row
+    for i in range(1, sheet.nrows):
+        # Get the row
+        row = sheet.row(i)
+        # Add the device to the database
+        add_device(row[0].value, row[1].value, row[2].value, row[3].value)
+        print(
+            f'Added device {row[0].value} to the database with details: {row[1].value}, {row[2].value}, {row[3].value}')
 
 
 # get device status by ping ip address
@@ -73,6 +86,15 @@ def get_device_status_by_ping(ip):
         return 'offline'
 
 
+# update a device in the database
+def update_device(ip, name, type, location):
+    collection.update_one(
+        {'ip': ip}, {
+            '$set': {'name': name, 'type': type, 'location': location, 'status': get_device_status_by_ping(ip)}
+        }
+    )
+
+
 # set status of device in database
 def set_device_status(ip):
     # Get the device status by ping
@@ -87,12 +109,14 @@ def set_device_status(ip):
 def get_length():
     return collection.count_documents({})
 
+
 # function to get device information by name
 def get_device_by_name(name):
     # Get the device
     device = collection.find_one({'name': name})
     # Return the device
     return device
+
 
 # search device information
 def search_device_info(q):
@@ -118,7 +142,7 @@ def search_device_info(q):
 
 
 # create large amounts of sample data
-def create_sample_data():
-    # Add x amount of devices to the database
-    for i in range(254):
-        add_device('192.168.1.' + str(i), 'Sample' + str(i), 'Router_' + str(i), 'Basement' + str(i), 'offline')
+# def create_sample_data():
+#     # Add x amount of devices to the database
+#     for i in range(254):
+#         add_device('192.168.1.' + str(i), 'Sample' + str(i), 'Router_' + str(i), 'Basement' + str(i), 'offline')
