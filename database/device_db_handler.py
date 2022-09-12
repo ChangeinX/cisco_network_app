@@ -94,6 +94,28 @@ def get_device_by_name(name):
     # Return the device
     return device
 
+# search device information
+def search_device_info(q):
+    # Get all the devices
+    devices = get_devices()
+    # Create a list to store the device information
+    device_info = []
+    # Loop through each device
+    for device in devices:
+        # If the device name contains the search term
+        if q.lower() in device['name'].lower():
+            # Get the device information
+            device_info.append({
+                'id': str(device['_id']),
+                'name': device['name'],
+                'type': device['type'],
+                'location': device['location'],
+                'ip': device['ip'],
+                'status': device['status']
+            })
+    # Return the device information
+    return device_info
+
 
 # create large amounts of sample data
 def create_sample_data():
