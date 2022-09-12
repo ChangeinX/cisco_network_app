@@ -4,7 +4,6 @@
     <div>
         <h1>Dashboard</h1>
     </div>
-    {#    Search bar above table on right side#}
     <div class="row">
         <div class="col-md-6">
             <div class="input-group">
@@ -16,7 +15,7 @@
     </div>
 
     <div class="table-responsive">
-        <table id="device-table" class="table table-sm table-borderless mb-0">
+        <table id="device-table" class="table table-sm table-borderless mb-0"  method="POST">
             <thead class="thead-dark">
             <tr>
                 <th>Name</th>
@@ -34,7 +33,9 @@
                     <td>{{ device.location }}</td>
                     <td>{{ device.ip }}</td>
                     <td>{{ device.status }}
-                        <button id="ping" type="button">Ping</button>
+                        <button name="ping" type="submit" value={{ device.ip }}>
+                            Ping
+                        </button>
                     </td>
                 </tr>
             {% endfor %}
