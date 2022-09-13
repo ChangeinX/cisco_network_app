@@ -56,9 +56,9 @@ def add_device(name, device_type, location, ip):
     })
 
 
-# build the database from excel file
+# build the database from Excel file
 def build_database_from_excel():
-    # Get the excel file
+    # Get the Excel file
     workbook = xlrd.open_workbook('devices.xls')
     # Get the first sheet
     sheet = workbook.sheet_by_index(0)
@@ -86,7 +86,21 @@ def get_device_status_by_ping(ip):
         return 'offline'
 
 
-# update a device in the database
+# update database from ping
+def update_database_from_ping():
+    # Get all the devices
+    devices = get_devices()
+    # Loop through each device
+    for device in devices:
+        # Get the device status by ping
+        status = get_device_status_by_ping(device['ip'])
+        # Update the device status
+        collection.update_one({'ip': device['ip']}, {'$set': {'status': status}})
+        print(f'Updated device {device["name"]} with status {status}')
+
+    # update a device in the database
+
+
 def update_device(ip, name, type, location):
     collection.update_one(
         {'ip': ip}, {
@@ -139,7 +153,6 @@ def search_device_info(q):
             })
     # Return the device information
     return device_info
-
 
 # create large amounts of sample data
 # def create_sample_data():

@@ -23,14 +23,18 @@ def admin_dashboard():
 
 
 # if button id="ping" is pressed ping the device and refresh the page
-@app.route('/admin/dashboard/ping/<ip>', methods=['GET', 'POST'])
-def ping_device(ip):
+@app.route('/admin/dashboard/', methods=['POST'])
+def ping_device():
     # ping the device if submit button was pressed in the table
     if request.method == 'POST':
-        # ping the device
-        device_db_handler.get_device_status_by_ping(ip)
-        # refresh the page
-        return redirect(url_for('admin_dashboard'))
+        if request.form['dynamic_button']:
+            # ping the device
+            print(f'pinging {request.form["dynamic_button"]}')
+            device_db_handler.get_device_status_by_ping(request.form['dynamic_button'])
+            # refresh the page
+            return redirect(url_for('admin_dashboard'))
+    return redirect(url_for('admin_dashboard'))
+
 
 
 # dynamic route to click on a device and load its information

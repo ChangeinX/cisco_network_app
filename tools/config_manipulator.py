@@ -199,8 +199,3 @@ def get_parent_child_dict_to_database():
             net_connect.disconnect()
             # send the parent and child dictionary to the database
             device_config_db.get_unknown_amount_of_arguments(name, parent_child_dict)
-
-
-get_parent_child_dict_to_database()
-
-# method to convert device configs to json using

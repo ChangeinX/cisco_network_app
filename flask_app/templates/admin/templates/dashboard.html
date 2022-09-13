@@ -33,9 +33,10 @@
                     <td>{{ device.location }}</td>
                     <td>{{ device.ip }}</td>
                     <td>{{ device.status }}
-                        <button name="ping" type="submit" value={{ device.ip }}>
-                            Ping
-                        </button>
+                        <form action="" method="POST">
+                            <input type="hidden" name="dynamic_button" value="{{ device.ip }}">
+                            <input type="submit" name="ping_button" value="Ping">
+                        </form>
                     </td>
                 </tr>
             {% endfor %}
