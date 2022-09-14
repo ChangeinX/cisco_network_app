@@ -50,3 +50,7 @@ def admin_device(name):
 def admin_profile(username):
     print(f'Admin Profile for {username}')
     return f"Admin Profile for {username}"
+
+@app.route("/admin/config/device", methods=['GET', 'POST'])
+def admin_config_device():
+    return render_template('admin/templates/config_device.html')
